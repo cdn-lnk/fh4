@@ -11,3 +11,6 @@ Bytes 233..244: Padding
 Bytes 245..323: Dash extension
 Byte       324: Padding
 ```
+
+> One packet is exported at every frame (?)
+> matplotlib updates at ~40 fps if interval=0
