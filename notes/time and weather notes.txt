@@ -1,0 +1,23 @@
+.___dawn
+|.__sunrise
+||._morning
+||| early afternoon
+|||_late afternoon
+||__sunset
+|___evening
+    night
+
+tested on spring
+clear = clear weather + "dry" track
+clear post rain = clear weather + wet track
+cloudy = cloudy weather + "dry" track
+cloudy post rain = cloudy weather + wet track
+overcast = rainy weather + "dry" track
+light rain = rainy weather + wet track
+heavy rain = rainy weather + wet track
+
+test more
+fog + foggy weather = "dry" track
+light snow
+heavy snow
+blizzard
