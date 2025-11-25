@@ -14,7 +14,6 @@ def main(args):
 	# while the collect function runs in a separated thread
 	# The variables below are shared between them
 
-	number_of_events = 0
 	x = deque(maxlen=args.buffer)
 	y = {}
 	for i in args.index:
@@ -33,11 +32,8 @@ def main(args):
 		print("DATA OUT IP ADDRESS =", data.sock.getsockname()[0])
 		print("DATA OUT IP PORT =", data.sock.getsockname()[1])
 
-		nonlocal number_of_events
-
 		while not stop:
 
-			number_of_events += 1
 			try: data_copy = data()
 			except TimeoutError: continue
 			x.append(data_copy[1])
@@ -50,11 +46,6 @@ def main(args):
 	##########################
 
 	def animate(number_of_frames):
-
-		nonlocal number_of_events
-		if (number_of_events > args.buffer):
-			print(f"Warning: lost {number_of_events - args.buffer} events since last update!")
-		number_of_events = 0
 
 		for i in args.index:
 			line[i].set_data(x, y)
