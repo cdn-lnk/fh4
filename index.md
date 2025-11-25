@@ -31,7 +31,7 @@
 29. WheelOnRumbleStripFrontLeft
 30. WheelOnRumbleStripFrontRight
 31. WheelOnRumbleStripRearLeft
-32. heelOnRumbleStripRearRight
+32. WheelOnRumbleStripRearRight
 33. WheelInPuddleDepthFrontLeft
 34. WheelInPuddleDepthFrontRight
 35. WheelInPuddleDepthRearLeft
