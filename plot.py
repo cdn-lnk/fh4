@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 from collections import deque
 from threading import Thread
 from matplotlib.animation import FuncAnimation
-from matplotlib.pyplot import gcf, plot, show
+from matplotlib.pyplot import gcf, legend, plot, show
 from fh4 import telemetry
 
 def main(args):
@@ -58,7 +58,8 @@ def main(args):
 	anim = FuncAnimation(gcf(), animate, interval=50)
 	line = {}
 	for i in args.index:
-		line[i], = plot(x, y[i], ".-")
+		line[i], = plot(x, y[i], ".-", label=i)
+	legend()
 	show()  # blocks until plot windows is closed
 
 	##########################
