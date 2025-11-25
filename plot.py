@@ -48,7 +48,7 @@ def main(args):
 	def animate(number_of_frames):
 
 		for i in args.index:
-			line[i].set_data(x, y)
+			line[i].set_data(x, y[i])
 			line[i].axes.relim()
 			line[i].axes.autoscale_view()
 
@@ -58,7 +58,7 @@ def main(args):
 	anim = FuncAnimation(gcf(), animate, interval=50)
 	line = {}
 	for i in args.index:
-		line[i], = plot(x, y, ".-")
+		line[i], = plot(x, y[i], ".-")
 	show()  # blocks until plot windows is closed
 
 	##########################
