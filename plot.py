@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 from collections import deque
 from threading import Thread
 from matplotlib.animation import FuncAnimation
-from matplotlib.pyplot import gcf, plot, show
+from matplotlib.pyplot import close, gcf, plot, show
 from fh4 import telemetry
 
 def main(args):
@@ -17,6 +17,7 @@ def main(args):
 	number_of_events = 0
 	x = deque(maxlen=args.buffer)
 	y = deque(maxlen=args.buffer)
+	stop = False
 
 	##########################
 
@@ -32,13 +33,15 @@ def main(args):
 
 		nonlocal number_of_events
 
-		while True:
+		while not stop:
 
 			number_of_events += 1
 			try: data_copy = data()
 			except TimeoutError: break
 			x.append(data_copy[1])
 			y.append(data_copy[args.index])
+
+		close()
 
 	collector_thread = Thread(target=collect)
 	collector_thread.start()
@@ -62,6 +65,10 @@ def main(args):
 	anim = FuncAnimation(gcf(), animate, interval=0)
 	line, = plot(x, y, ".-")
 	show()  # blocks until plot windows is closed
+
+	##########################
+
+	stop = True
 	collector_thread.join()
 
 
