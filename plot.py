@@ -36,6 +36,7 @@ def main(args):
 
 			try: data_copy = data()
 			except TimeoutError: continue
+			if not data_copy[0]: continue
 			x.append(data_copy[1])
 			for i in args.index:
 				y[i].append(data_copy[i])
