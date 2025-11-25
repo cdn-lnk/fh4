@@ -60,7 +60,7 @@ def main(args):
 	# The anim variable must remain declared, otherwise the animation stops!
 	# TODO enable BLIT to improve performance
 
-	anim = FuncAnimation(gcf(), animate, interval=0)
+	anim = FuncAnimation(gcf(), animate, interval=50)
 	line, = plot(x, y, ".-")
 	show()  # blocks until plot windows is closed
 
