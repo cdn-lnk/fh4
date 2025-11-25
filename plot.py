@@ -16,7 +16,9 @@ def main(args):
 
 	number_of_events = 0
 	x = deque(maxlen=args.buffer)
-	y = deque(maxlen=args.buffer)
+	y = {}
+	for i in args.index:
+		y[i] = deque(maxlen=args.buffer)
 	stop = False
 
 	##########################
@@ -39,7 +41,8 @@ def main(args):
 			try: data_copy = data()
 			except TimeoutError: continue
 			x.append(data_copy[1])
-			y.append(data_copy[args.index])
+			for i in args.index:
+				y[i].append(data_copy[i])
 
 	collector_thread = Thread(target=collect)
 	collector_thread.start()
@@ -53,15 +56,18 @@ def main(args):
 			print(f"Warning: lost {number_of_events - args.buffer} events since last update!")
 		number_of_events = 0
 
-		line.set_data(x, y)
-		line.axes.relim()
-		line.axes.autoscale_view()
+		for i in args.index:
+			line[i].set_data(x, y)
+			line[i].axes.relim()
+			line[i].axes.autoscale_view()
 
 	# The anim variable must remain declared, otherwise the animation stops!
 	# TODO enable BLIT to improve performance
 
 	anim = FuncAnimation(gcf(), animate, interval=50)
-	line, = plot(x, y, ".-")
+	line = {}
+	for i in args.index:
+		line[i], = plot(x, y, ".-")
 	show()  # blocks until plot windows is closed
 
 	##########################
@@ -73,7 +79,7 @@ def main(args):
 if __name__ == "__main__":
 	parser = ArgumentParser(description=__doc__)
 	parser.add_argument("-b", "--buffer", default=512, type=int)
-	parser.add_argument("-i", "--index", default=49, type=int)
+	parser.add_argument("-i", "--index", nargs="+", type=int)
 	parser.add_argument("-a", "--address", default="localhost")
 	parser.add_argument("-p", "--port", default=0, type=int)
 	main(parser.parse_args())
