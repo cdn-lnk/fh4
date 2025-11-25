@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 from collections import deque
 from threading import Thread
 from matplotlib.animation import FuncAnimation
-from matplotlib.pyplot import close, gcf, plot, show
+from matplotlib.pyplot import gcf, plot, show
 from fh4 import telemetry
 
 def main(args):
@@ -37,11 +37,9 @@ def main(args):
 
 			number_of_events += 1
 			try: data_copy = data()
-			except TimeoutError: break
+			except TimeoutError: continue
 			x.append(data_copy[1])
 			y.append(data_copy[args.index])
-
-		close()
 
 	collector_thread = Thread(target=collect)
 	collector_thread.start()
